@@ -1,0 +1,63 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+
+    symlink /system/etc /etc
+
+    mkdir /sdcard
+    mkdir /staging
+    mkdir /system
+    mkdir /data
+    mkdir /cache
+    mkdir /btmac
+    mount /tmp /tmp tmpfs
+
+    mount ext4 /dev/block/mmcblk0p1 /system wait
+    mount ext4 /dev/block/mmcblk0p2 /cache wait nosuid nodev
+    chown system cache /cache
+    chmod 0770 /cache
+    mount ext3 /dev/block/mmcblk0p4 /staging wait nosuid nodev
+    chown system staging /staging
+    chmod 0770 /staging
+    mount ext4 /dev/block/mmcblk0p8 /data wait nosuid nodev
+    chown system system /data
+    chmod 0771 /data
+
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+service recovery /sbin/recovery
+
+service adbd /sbin/adbd recovery
+  \ disabled
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18D1
+    write /sys/class/android_usb/android0/idProduct D001
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iSerial $ro.serialno
+    start adbd
+
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
