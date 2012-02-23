@@ -77,6 +77,9 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 # prebuilt Kernel
 TARGET_PREBUILT_KERNEL := device/asus/tf201/kernel
 
+# Coustom Tools
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf201/releasetools/tf201_ota_from_target_files
+
 # Recovery Options
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true

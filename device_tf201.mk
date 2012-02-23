@@ -101,7 +101,8 @@ PRODUCT_PACKAGES += \
 	setup_fs \
         audio.a2dp.default \
         libaudioutils \
-	libinvensense_mpl
+	libinvensense_mpl \
+        blobpack_tfp
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
