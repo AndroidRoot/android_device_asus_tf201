@@ -404,6 +404,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #  script.AssertOlderBuild(ts)
 
   AppendAssertions(script, input_zip)
+  script.UnmountAll()
   device_specific.FullOTA_Assertions()
   if OPTIONS.backuptool:
     script.RunBackup("backup")
@@ -433,7 +434,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   pblob = common.Run(cmdblob, stdout=subprocess.PIPE)
   pblob.communicate()
   assert pblob.returncode == 0, "blobpack_tfp of %s image failed" % (
-      os.path.basename(sourcedir),)
+      os.path.basename(DEV_OUT_DIR),)
 
   blob = common.File.FromLocalFile("boot.blob", os.path.join(DEV_OUT_DIR,"boot.blob"))
 
