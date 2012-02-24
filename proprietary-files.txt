@@ -115,7 +115,6 @@ lib/libsensors.al3010.so
 lib/libsensors.isl29018.so
 lib/libsensors.base.so    
 lib/libsensors.isl29028.so
-lib/libsensorservice.so   
 lib/libsensors.mpl.so
 usr/share/alsa/alsa.conf
 usr/share/alsa/cards/aliases.conf
