@@ -56,6 +56,7 @@ lib/libasound.so
 lib/libcgdrv.so
 lib/libmllite.so
 lib/libmlplatform.so
+lib/libmplmpu.so
 lib/libnvasfparserhal.so
 lib/libnvaviparserhal.so
 lib/libnvavp.so
