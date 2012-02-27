@@ -31,7 +31,6 @@ endif
 # Files needed for boot image
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
-    $(LOCAL_PATH)/ramdisk/init:root/init\
     $(LOCAL_PATH)/ramdisk/init.cardhu.rc:root/init.cardhu.rc\
     $(LOCAL_PATH)/ramdisk/ueventd.cardhu.rc:root/ueventd.cardhu.rc \
     $(LOCAL_PATH)/ramdisk/init.cardhu.usb.rc:root/init.cardhu.usb.rc
@@ -115,6 +114,11 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # Tegra 3 spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.tegra.nvmmlite=1
+
+# Prime spacific overrides
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.epad.model=TF201 \
+	ro.product.model=TF201
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
