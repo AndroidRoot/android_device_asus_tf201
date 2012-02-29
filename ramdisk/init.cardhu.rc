@@ -22,7 +22,6 @@ on fs
     setprop ro.crypto.umount_sd false
     mount ext4 /dev/block/mmcblk0p8 /data wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc
     mount ext4 /dev/block/mmcblk0p2 /cache wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc
-    mount tmpfs tmpfs /Removable mode=0755,gid=1000
 
 on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
