@@ -33,7 +33,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
     $(LOCAL_PATH)/ramdisk/init.cardhu.rc:root/init.cardhu.rc\
     $(LOCAL_PATH)/ramdisk/ueventd.cardhu.rc:root/ueventd.cardhu.rc \
-    $(LOCAL_PATH)/ramdisk/init.cardhu.usb.rc:root/init.cardhu.usb.rc
+    $(LOCAL_PATH)/ramdisk/init.cardhu.usb.rc:root/init.cardhu.usb.rc \
+    $(LOCAL_PATH)/ramdisk/init.cardhu.keyboard.rc:root/init.cardhu.keyboard.rc \
+    $(LOCAL_PATH)/ramdisk/init.cardhu.cpu.rc:root/init.cardhu.cpu.rc \
+    $(LOCAL_PATH)/prebuilt/keyswap::root/sbin/keyswap \
 
 # Prebuilt configeration files
 PRODUCT_COPY_FILES += \
@@ -96,7 +99,8 @@ PRODUCT_PACKAGES += \
         audio.a2dp.default \
         libaudioutils \
 	libinvensense_mpl \
-        blobpack_tfp
+        blobpack_tfp \
+        AutoParts_tfp
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \

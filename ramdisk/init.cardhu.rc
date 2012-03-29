@@ -1,4 +1,6 @@
 import init.cardhu.usb.rc
+import init.cardhu.keyboard.rc
+import init.cardhu.cpu.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -120,19 +122,10 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_input_time
 
 # Setup CPU for "balanced" mode 
-    write /sys/module/cpu_tegra/parameters/system_mode 1
-    write /sys/kernel/tegra_cap/core_cap_level 1200
-    write /sys/kernel/tegra_cap/core_cap_state 1
-    write /sys/devices/platform/tegra_grhost/enable_3d_scaling 1
-    write /sys/module/cpu_tegra3/parameters/mp_overhead 10
-    write /sys/module/cpu_tegra/parameters/pwr_cap_limit_1 9999999
-    write /sys/module/cpu_tegra/parameters/pwr_cap_limit_2 9999999
-    write /sys/module/cpu_tegra/parameters/pwr_cap_limit_3 9999999
-    write /sys/module/cpu_tegra/parameters/pwr_cap_limit_4 9999999
-    setprop power.saving.mode 0
-    setprop persist.tegra.NV_FPSLIMIT 0
-    setprop persist.sys.NV_FPSLIMIT 35
-    setprop persist.sys.NV_POWERMODE 1
+    setprop sys.cpu.mode 1
+
+# We dont want to swap keys unless needed
+    setprop sys.dockkeys.change 0
 
 # Touchscreen Config-UI interface
    chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/debug_enable
