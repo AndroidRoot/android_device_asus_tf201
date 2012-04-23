@@ -61,9 +61,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/nvram_nh615.txt:system/etc/nvram_nh615.txt \
     $(LOCAL_PATH)/prebuilt/firmware/BCM4329B1_002.002.023.0797.0863.hcd:system/etc/firmware/BCM4329B1_002.002.023.0797.0863.hcd \
     $(LOCAL_PATH)/prebuilt/firmware/TF201-RS_M6Mo.bin:system/etc/firmware/camera/TF201-RS_M6Mo.bin \
-    $(LOCAL_PATH)/prebuilt/firmware/fw_bcmdhd.bin:system/vendor/firmware/fw_bcmdhd.bin \
-    $(LOCAL_PATH)/prebuilt/firmware/fw_bcmdhd_apsta.bin:system/vendor/firmware/fw_bcmdhd_apsta.bin \
-    $(LOCAL_PATH)/prebuilt/firmware/fw_bcmdhd_p2p.bin:system/vendor/firmware/fw_bcmdhd_p2p.bin
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -92,39 +89,42 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Extra packages to build for this device
 PRODUCT_PACKAGES += \
-    	librs_jni \
-	com.android.future.usb.accessory \
-	make_ext4fs \
-	setup_fs \
-        audio.a2dp.default \
-        libaudioutils \
-	libinvensense_mpl \
-        blobpack_tfp \
-        AutoParts_tfp \
-        mischelp
+    librs_jni \
+    com.android.future.usb.accessory \
+    make_ext4fs \
+    setup_fs \
+    audio.a2dp.default \
+    libaudioutils \
+    libinvensense_mpl \
+    blobpack_tfp \
+    AutoParts_tfp \
+    mischelp
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
-    	wifi.interface=wlan0 \
-    	wifi.supplicant_scan_interval=15 \
-    	ro.opengles.version=131072 \
-	persist.sys.usb.config=mtp,adb \
-	dalvik.vm.dexopt-data-only=1
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=15 \
+    ro.opengles.version=131072 \
+    persist.sys.usb.config=mtp,adb \
+    dalvik.vm.dexopt-data-only=1
 
 # Tegra 3 spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-	persist.tegra.nvmmlite=1
+    persist.tegra.nvmmlite=1
 
 # Prime spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.epad.model=TF201 \
-	ro.product.model=TF201
+    ro.epad.model=TF201 \
+    ro.product.model=TF201
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 
 # Call the vendor to setup propiatory files
 $(call inherit-product-if-exists, vendor/asus/tf201/tf201-vendor.mk)
+
+# Copy bcm4329 firmware
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
 # Device nameing
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
