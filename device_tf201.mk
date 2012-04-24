@@ -58,7 +58,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera/WiFi/BT Firmware
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/nvram_nh615.txt:system/etc/nvram_nh615.txt \
+    $(LOCAL_PATH)/prebuilt/nvram_4329.txt:system/etc/nvram_4329.txt \
     $(LOCAL_PATH)/prebuilt/firmware/BCM4329B1_002.002.023.0797.0863.hcd:system/etc/firmware/BCM4329B1_002.002.023.0797.0863.hcd \
     $(LOCAL_PATH)/prebuilt/firmware/TF201-RS_M6Mo.bin:system/etc/firmware/camera/TF201-RS_M6Mo.bin \
 
