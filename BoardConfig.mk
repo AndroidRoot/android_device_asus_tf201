@@ -77,7 +77,11 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 527433728
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 29850022707
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-# prebuilt Kernel
+# Try to build the kernel
+TARGET_KERNEL_SOURCE := kernel/asus/tf201
+TARGET_KERNEL_CONFIG := tf201_defconfig
+
+# Prebuilt Kernel Fallback
 TARGET_PREBUILT_KERNEL := device/asus/tf201/kernel
 
 # Coustom Tools
