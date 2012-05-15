@@ -34,4 +34,4 @@ $(call inherit-product, device/asus/tf201/device_tf201.mk)
 PRODUCT_NAME := full_tf201
 PRODUCT_DEVICE := tf101
 PRODUCT_BRAND := asus
-PRODUCT_MODEL := Transformer Prime
+PRODUCT_MODEL := Transformer Prime TF201
