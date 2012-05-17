@@ -112,8 +112,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15 \
     ro.opengles.version=131072 \
-    persist.sys.usb.config=mtp,adb \
-    dalvik.vm.dexopt-data-only=1
+    persist.sys.usb.config=mtp,adb
 
 # Tegra 3 spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
