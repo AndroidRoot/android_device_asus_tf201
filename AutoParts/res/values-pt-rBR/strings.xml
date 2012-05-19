@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Configurações Asus Transformer Prime</string>
+    <string name="keyboard_language_title">Disposição do Teclado de Encaixe</string>
+    <string name="keyboard_language_summary">Modificar disposição do teclado de encaixe</string>
+    <string name="dock_settings_title">Configurações de Encaixe</string>
+    <string name="cpu_settings_title">Configurações de CPU</string>
+    <string name="cpu_mode_title">Alterar Modo de CPU</string>
+    <string name="cpu_settings_summary">Alterar Modo de Energia da CPU</string>
+    <string name="cpu_pwrsv">Economia de Energia</string>
+    <string name="cpu_bal">Balanceado</string>
+    <string name="cpu_pref">Performance</string>
+</resources>
