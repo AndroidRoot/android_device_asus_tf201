@@ -1,6 +1,8 @@
 bin/sensors-config
 bin/glgps
 etc/enctune.conf
+etc/gps.conf
+etc/u-blox.conf
 etc/asound.conf
 etc/dbus.conf
 etc/firmware/nvavp_os_0ff00000.bin
@@ -45,6 +47,8 @@ lib/hw/audio.primary.tegra.so
 lib/hw/audio_policy.tegra.so
 lib/hw/camera.tegra.so
 lib/hw/gps.tegra.so
+lib/hw/gpsdongle.tegra.so
+lib/hw/gpsinternal.tegra.so
 lib/hw/gralloc.tegra.so
 lib/hw/hwcomposer.tegra.so
 lib/hw/lights.cardhu.so
