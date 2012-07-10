@@ -83,8 +83,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
-    $(LOCAL_PATH)/asusdec/com.cyanogenmod.asusdec.xml:system/etc/permissions/com.cyanogenmod.asusdec.xml
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
 # Build characteristics setting 
 PRODUCT_CHARACTERISTICS := tablet
@@ -99,13 +98,17 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs \
     audio.a2dp.default \
+	audio.usb.default \
     libaudioutils \
     libinvensense_mpl \
     blobpack_tfp \
 #    AutoParts_tfp \
     mischelp \
 #    com.cyanogenmod.asusdec \
-    libasusdec_jni
+#    libasusdec_jni \
+	tinymix \
+	tinyplay \
+	tinyrec
 
 # Build Some Extra Apps
 PRODUCT_PACKAGES += \
@@ -138,7 +141,7 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329
 
 # Device nameing
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_tf201
+PRODUCT_NAME := tf201
 PRODUCT_DEVICE := tf201
 PRODUCT_MODEL := tf201
 PRODUCT_BRAND := asus
