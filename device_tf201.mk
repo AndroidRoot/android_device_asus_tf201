@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     make_ext4fs \
     setup_fs \
+	audio.primary.cardhu \
     audio.a2dp.default \
     audio.usb.default \
     libaudioutils \
