@@ -1,0 +1,28 @@
+<mixer>
+  <!-- These are the initial mixer settings -->
+  <ctl name="DMIC Mute Left" value="1" />
+  <ctl name="DMIC Mute Right " value="1" />
+  <ctl name="Int Spk Switch" value="1" />
+
+  <path name="speaker">
+    <ctl name="DMIC Mute Left" value="0" />
+    <ctl name="DMIC Mute Right" value="0" />
+    <ctl name="Int Spk Switch" value="1" />
+  </path>
+
+  <path name="headphone">
+    <ctl name="DMIC Mute Left" value="0" />
+    <ctl name="DMIC Mute Right" value="0" />
+    <ctl name="Int Spk Switch" value="0" />
+    <ctl name="Headphone Jack Switch" value="1" />
+  </path>
+
+  <path name="main-mic-top">
+  </path>
+
+  <path name="main-mic-left">
+  </path>
+
+  <path name="headset-mic">
+  </path>
+</mixer>
