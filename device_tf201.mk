@@ -107,7 +107,8 @@ PRODUCT_PACKAGES += \
     mischelp \
     tinymix \
     tinyplay \
-    tinyrec
+    tinyrec \
+    audio.primary.cardhu
 
 # Build Some Extra Apps
 PRODUCT_PACKAGES += \
