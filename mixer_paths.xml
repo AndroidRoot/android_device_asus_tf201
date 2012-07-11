@@ -2,7 +2,7 @@
   <!-- These are the initial mixer settings -->
   <ctl name="DMIC Mute Left" value="1" />
   <ctl name="DMIC Mute Right " value="1" />
-  <ctl name="Int Spk Switch" value="1" />
+  <ctl name="Int Spk Switch" value="0" />
 
   <path name="speaker">
     <ctl name="DMIC Mute Left" value="0" />
