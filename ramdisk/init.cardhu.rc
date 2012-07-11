@@ -19,11 +19,10 @@ on early-init
     mkdir /Removable/USBdisk2 0666 system system
     mkdir /Removable/SD 0666 system system
 on fs
-    mount ext4 /dev/block/mmcblk0p1 /system wait ro
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
     setprop ro.crypto.umount_sd false
-    mount ext4 /dev/block/mmcblk0p8 /data wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc
-    mount ext4 /dev/block/mmcblk0p2 /cache wait noatime nosuid nodev journal_async_commit,data=writeback,nodelalloc
+    mount_all /fstab.cardhu
+
 
 on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
