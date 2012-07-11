@@ -128,6 +128,26 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF201 \
     ro.product.model=TF201
 
+# media config xml file
+PRODUCT_COPY_FILES += \
+    device/asus/tf201/media_profiles.xml:system/etc/media_profiles.xml
+
+# media codec config xml file
+PRODUCT_COPY_FILES += \
+    device/asus/tf201/media_codecs.xml:system/etc/media_codecs.xml
+
+PRODUCT_COPY_FILES += \
+    system/bluetooth/data/main.nonsmartphone.conf:system/etc/bluetooth/main.conf
+
+# audio mixer paths
+PRODUCT_COPY_FILES += \
+    device/asus/tf201/mixer_paths.xml:system/etc/mixer_paths.xml
+
+# audio policy configuration
+PRODUCT_COPY_FILES += \
+    device/asus/tf201/audio_policy.conf:system/etc/audio_policy.conf
+
+
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
