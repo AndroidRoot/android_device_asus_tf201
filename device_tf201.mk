@@ -98,17 +98,14 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs \
     audio.a2dp.default \
-	audio.usb.default \
+    audio.usb.default \
     libaudioutils \
     libinvensense_mpl \
     blobpack_tfp \
-#    AutoParts_tfp \
     mischelp \
-#    com.cyanogenmod.asusdec \
-#    libasusdec_jni \
-	tinymix \
-	tinyplay \
-	tinyrec
+    tinymix \
+    tinyplay \
+    tinyrec
 
 # Build Some Extra Apps
 PRODUCT_PACKAGES += \
@@ -134,7 +131,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 # Call the vendor to setup propiatory files
-# $(call inherit-product-if-exists, vendor/asus/tf201/tf201-vendor.mk)
+$(call inherit-product-if-exists, vendor/asus/tf201/tf201-vendor.mk)
 
 # Copy bcm4329 firmware
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
