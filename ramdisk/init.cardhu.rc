@@ -36,7 +36,7 @@ on post-fs-data
 
     mkdir /data/misc/wminput 0776 system system
 
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    # we will remap this as /storage/sdcard0 with the sdcard fuse tool
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
 
@@ -442,3 +442,11 @@ on property:init.svc.sensors-config=stopped
     chmod 644 /data/lightsensor/AL3010_Config.ini
     chown system system /data/lightsensor/AL3010_Config.ini
 
+# create filesystems if necessary
+service setup_fs /system/bin/setup_fs \
+        /dev/block/platform/sdhci-tegra.3/by-name/UDA \
+        /dev/block/platform/sdhci-tegra.3/by-name/CAC
+    class core
+    user root
+    group root
+    oneshot
