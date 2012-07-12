@@ -37,6 +37,9 @@ TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_USE_NON_NEON_MEMCPY := true
 
+# Avoid the generation of ldrcc instructions
+NEED_WORKAROUND_CORTEX_A9_745320 := true
+
 # Boot/Recovery image settings  
 BOARD_KERNEL_CMDLINE := 
 BOARD_KERNEL_BASE := 0x10000000
