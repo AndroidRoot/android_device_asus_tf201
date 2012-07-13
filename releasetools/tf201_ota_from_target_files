@@ -419,12 +419,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #script.UnpackPackageDir("recovery", "/system")
   script.UnpackPackageDir("system", "/system")
 
-  (symlinks, retouch_files) = CopySystemFiles(input_zip, output_zip)
+  (symlinks, unused) = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
-  if OPTIONS.aslr_mode:
-    script.RetouchBinaries(retouch_files)
-  else:
-    script.UndoRetouchBinaries(retouch_files)
 
   prebuilt_path = os.path.join(DEV_OUT_DIR, "boot.img")
   
