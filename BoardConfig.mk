@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-BOARD_USES_GENERIC_AUDIO := false
+USE_PROPRIETARY_AUDIO_EXTENSIONS := true
 USE_CAMERA_STUB := false
 
 # inherit from the proprietary version
@@ -80,6 +80,10 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 29850022707
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
+# Audio Build Options
+BOARD_USES_GENERIC_AUDIO := false
+BOARD_USES_ALSA_AUDIO := false
+
 # Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/asus/tf201
 TARGET_KERNEL_CONFIG := tegra3_android_defconfig
@@ -96,6 +100,3 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_INITRC := device/asus/tf201/recovery/init.rc
 BOARD_HAS_SDCARD_INTERNAL := true
-
-USE_PROPRIETARY_AUDIO_EXTENSIONS := true
-BOARD_USES_ALSA_AUDIO := false
