@@ -22,6 +22,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
 
 #include <cutils/log.h>
 #include <cutils/properties.h>
@@ -59,6 +61,21 @@
 #define MIN_WRITE_SLEEP_US 2000
 #define MAX_WRITE_SLEEP_US ((OUT_PERIOD_SIZE * OUT_SHORT_PERIOD_COUNT * 1000000) \
                                 / OUT_SAMPLING_RATE)
+
+#define DSP_DEV_PATH "/dev/dsp_fm34"
+#define DSP_IOC_MAGIC	0xf3
+#define DSP_CONTROL _IOW(DSP_IOC_MAGIC, 1,int)
+#define START_RECORDING 1
+#define END_RECORDING 0
+#define PLAYBACK 2
+
+#define AUDIO_DEV_PATH "/dev/rt5631"
+#define AUDIO_IOC_MAGIC 0xf7
+#define AUDIO_CAPTURE_MODE _IOW(AUDIO_IOC_MAGIC, 6,int)
+#define INPUT_SOURCE_NORMAL 100
+#define OUTPUT_SOURCE_NORMAL 200
+
+bool isRecording = false;
 
 enum {
     OUT_BUFFER_TYPE_UNKNOWN,
@@ -177,6 +194,18 @@ static void select_devices(struct audio_device *adev)
     int headphone_on;
     int speaker_on;
     int main_mic_on;
+    int fm34_dev, rt5631_dev;
+    int ret;
+
+    fm34_dev = open(DSP_DEV_PATH,0);
+
+    rt5631_dev = open(AUDIO_DEV_PATH,0);
+
+    if (fm34_dev < 0)
+        ALOGE("open %s failed", DSP_DEV_PATH);
+
+    if (rt5631_dev < 0)
+        ALOGE("open %s failed", AUDIO_DEV_PATH);
 
     headphone_on = adev->devices & (AUDIO_DEVICE_OUT_WIRED_HEADSET |
                                     AUDIO_DEVICE_OUT_WIRED_HEADPHONE);
@@ -185,11 +214,31 @@ static void select_devices(struct audio_device *adev)
 
     reset_mixer_state(adev->ar);
 
+    if (rt5631_dev > 0 && fm34_dev > 0){
+        if (speaker_on || headphone_on){
+            if (isRecording){
+                ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
+                ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
+                isRecording = false;
+            }
+            ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
+        }
+
+        if (main_mic_on) {
+            if (!isRecording) {
+                isRecording = true;
+                ioctl(fm34_dev, DSP_CONTROL, START_RECORDING);
+                ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, INPUT_SOURCE_NORMAL);
+            }
+        }
+    }
+
     if (speaker_on)
         audio_route_apply_path(adev->ar, "speaker");
     if (headphone_on)
         audio_route_apply_path(adev->ar, "headphone");
     if (main_mic_on) {
+
         if (adev->orientation == ORIENTATION_LANDSCAPE)
             audio_route_apply_path(adev->ar, "main-mic-left");
         else
@@ -200,6 +249,12 @@ static void select_devices(struct audio_device *adev)
 
     ALOGV("hp=%c speaker=%c main-mic=%c", headphone_on ? 'y' : 'n',
           speaker_on ? 'y' : 'n', main_mic_on ? 'y' : 'n');
+
+    if(fm34_dev > 0)
+        close(fm34_dev);
+
+    if(rt5631_dev > 0)
+        close(rt5631_dev);
 }
 
 /* must be called with hw device and output stream mutexes locked */
