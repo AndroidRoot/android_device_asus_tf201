@@ -214,23 +214,19 @@ static void select_devices(struct audio_device *adev)
 
     reset_mixer_state(adev->ar);
 
-    if (rt5631_dev > 0 && fm34_dev > 0){
-        if (speaker_on || headphone_on){
-            if (isRecording){
-                ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
-                ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
-                isRecording = false;
-            }
-            ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
+    if (main_mic_on) {
+        if (!isRecording) {
+            isRecording = true;
+            ioctl(fm34_dev, DSP_CONTROL, START_RECORDING);
+            ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, INPUT_SOURCE_NORMAL);
         }
-
-        if (main_mic_on) {
-            if (!isRecording) {
-                isRecording = true;
-                ioctl(fm34_dev, DSP_CONTROL, START_RECORDING);
-                ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, INPUT_SOURCE_NORMAL);
-            }
+    } else {
+        if (isRecording) {
+            isRecording = false;
+            ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
+            ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
         }
+        ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
     }
 
     if (speaker_on)
