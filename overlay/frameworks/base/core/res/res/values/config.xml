@@ -112,18 +112,23 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>5</item>
-        <item>15</item>
+        <item>10</item>
         <item>50</item>
         <item>100</item>
         <item>200</item>
+        <item>300</item>
         <item>400</item>
-        <item>1000</item>
-        <item>2000</item>
+        <item>500</item>
+        <item>600</item>
+        <item>700</item>
+        <item>900</item>
+        <item>1100</item>
+        <item>1400</item>
+        <item>1700</item>
+        <item>2100</item>
+        <item>2500</item>
         <item>3000</item>
-        <item>5000</item>
-        <item>10000</item>
-        <item>30000</item>
+        <item>4000</item>
     </integer-array>
 
 
@@ -131,20 +136,25 @@
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>5</item>    <!-- 0-5 -->
-        <item>20</item>   <!-- 5-15 -->
-        <item>30</item>   <!-- 15-50 -->
-        <item>40</item>   <!-- 50-100 -->
-        <item>50</item>   <!-- 100-200 -->
-        <item>60</item>   <!-- 200-400 -->
-        <item>70</item>   <!-- 400-1000 -->
-        <item>80</item>   <!-- 1000-2000 -->
-        <item>130</item>  <!-- 2000-3000 -->
-        <item>180</item>  <!-- 3000-5000 -->
-        <item>255</item>  <!-- 5000-10000 -->
-        <item>255</item>  <!-- 10000-30000 -->
-        <item>255</item>  <!-- 30000+ -->
+     <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>10</item>
+        <item>40</item>
+        <item>60</item>
+        <item>64</item>
+        <item>68</item>
+        <item>72</item>
+        <item>76</item>
+        <item>80</item>
+        <item>84</item>
+        <item>88</item>
+        <item>92</item>
+        <item>96</item>
+        <item>100</item>
+        <item>130</item>
+        <item>160</item>
+        <item>190</item>
+        <item>220</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -169,10 +179,11 @@
         <item>0</item>
         <item>0</item>
         <item>0</item>
+        <item>0</item>
     </integer-array>
 
     <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">5</integer>
+    <integer name="config_screenBrightnessDim">10</integer>
 
     <!-- This device is not "voice capable"; it's data-only. -->
     <bool name="config_voice_capable">false</bool>
