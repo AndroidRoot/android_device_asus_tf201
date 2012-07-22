@@ -22,7 +22,7 @@ PRODUCT_PACKAGES += \
     	Camera
 
 # Inherit full-base
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
 # Inherit from toro device
 $(call inherit-product, device/asus/tf201/device_tf201.mk)
