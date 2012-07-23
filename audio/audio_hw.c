@@ -73,6 +73,7 @@
 #define AUDIO_IOC_MAGIC 0xf7
 #define AUDIO_CAPTURE_MODE _IOW(AUDIO_IOC_MAGIC, 6,int)
 #define INPUT_SOURCE_NORMAL 100
+#define INPUT_SOURCE_AGC 301
 #define OUTPUT_SOURCE_NORMAL 200
 
 bool isRecording = false;
@@ -214,26 +215,31 @@ static void select_devices(struct audio_device *adev)
 
     reset_mixer_state(adev->ar);
 
-    if (main_mic_on) {
-        if (!isRecording) {
-            isRecording = true;
-            ioctl(fm34_dev, DSP_CONTROL, START_RECORDING);
-            ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, INPUT_SOURCE_NORMAL);
-        }
-    } else {
-        if (isRecording) {
-            isRecording = false;
-            ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
-            ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
-        }
-        ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
-    }
-
-    if (speaker_on)
+    if (speaker_on) {
         audio_route_apply_path(adev->ar, "speaker");
-    if (headphone_on)
+        ALOGE("Speaker Is Online");
+
+        ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
+        ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
+        ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
+
+    }
+    if (headphone_on){
         audio_route_apply_path(adev->ar, "headphone");
+        ALOGE("Headset Is Online");
+
+        ioctl(fm34_dev, DSP_CONTROL, END_RECORDING);
+        ioctl(fm34_dev, DSP_CONTROL, PLAYBACK);
+        ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, OUTPUT_SOURCE_NORMAL);
+
+    }
     if (main_mic_on) {
+
+        ALOGE("MIC Is Online");
+
+        ioctl(fm34_dev, DSP_CONTROL, INPUT_SOURCE_AGC);
+        ioctl(fm34_dev, DSP_CONTROL, START_RECORDING);
+        ioctl(rt5631_dev, AUDIO_CAPTURE_MODE, INPUT_SOURCE_AGC);
 
         if (adev->orientation == ORIENTATION_LANDSCAPE)
             audio_route_apply_path(adev->ar, "main-mic-left");
