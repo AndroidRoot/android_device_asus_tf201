@@ -239,12 +239,18 @@
 
     <integer name="config_lidOpenRotation">0</integer>
 
-    <integer name="config_lidKeyboardAccessibility">2</integer>
+    <integer name="config_lidKeyboardAccessibility">1</integer>
 
     <!-- Path to the library that contains a device specific key handler -->
     <string name="config_deviceKeyHandlerLib" translatable="false">/system/framework/com.cyanogenmod.asusdec.jar</string>
 
     <!-- Name of that key handler class -->
     <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.asusdec.KeyHandler</string>
+
+
+    <!-- If a dock provides a lid switch, that lid can be removed. This
+         setting is used to determine, whether lidOpenRotation has to be
+         applied. -->
+    <bool name="config_hasRemovableLid">true</bool>
 
 </resources>
