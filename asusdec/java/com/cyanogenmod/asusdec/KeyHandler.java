@@ -42,10 +42,11 @@ import com.android.internal.os.DeviceKeyHandler;
 public final class KeyHandler implements DeviceKeyHandler {
     private static final String TAG = "AsusdecKeyHandler";
 
-    private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_OFF + 1;
     private static final int MAXIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_ON;
+    private static final int BRIGHTNESS_STEP = 10;
     private static final String SETTING_TOUCHPAD_STATUS = "touchpad_status";
 
+    private final int mScreenBrightnessDim;
     private final Context mContext;
     private final Handler mHandler;
     private final Intent mSettingsIntent;
@@ -67,6 +68,9 @@ public final class KeyHandler implements DeviceKeyHandler {
         mSettingsIntent.setAction(Settings.ACTION_SETTINGS);
         mSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+        mScreenBrightnessDim = context.getResources().getInteger(
+                com.android.internal.R.integer.config_screenBrightnessDim);
 
         mAutomaticAvailable = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_automatic_brightness_available);
@@ -196,11 +200,11 @@ public final class KeyHandler implements DeviceKeyHandler {
     private void brightnessDown() {
         setBrightnessMode(Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
 
-        int value = getBrightness(MINIMUM_BACKLIGHT);
+        int value = getBrightness(mScreenBrightnessDim);
 
-        value -= 10;
-        if (value < MINIMUM_BACKLIGHT) {
-            value = MINIMUM_BACKLIGHT;
+        value -= BRIGHTNESS_STEP;
+        if (value < mScreenBrightnessDim) {
+            value = mScreenBrightnessDim;
         }
         setBrightness(value);
     }
@@ -210,7 +214,7 @@ public final class KeyHandler implements DeviceKeyHandler {
 
         int value = getBrightness(MAXIMUM_BACKLIGHT);
 
-        value += 10;
+        value += BRIGHTNESS_STEP;
         if (value > MAXIMUM_BACKLIGHT) {
             value = MAXIMUM_BACKLIGHT;
         }
