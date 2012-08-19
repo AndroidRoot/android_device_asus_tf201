@@ -148,6 +148,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/asus/tf201/audio_policy.conf:system/etc/audio_policy.conf
 
+# camera configuration file
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/nvcamera.conf:system/etc/nvcamera.conf
+
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
