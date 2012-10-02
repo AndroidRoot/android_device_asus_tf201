@@ -58,13 +58,19 @@ lib/libnvremoteprotocol.so
 lib/libEGL.so
 lib/libnvmmlite_msaudio.so
 lib/libnvrm_graphics.so
-lib/libmllite.so
+
+lib/libmlplatform6050.so  
+lib/libmllite3050.so      
+lib/libmplmpu3050.so
+lib/libmllite6050.so      
+lib/libmplmpu6050.so
+lib/libmlplatform3050.so
+
+
 lib/libnvmmlite.so
 lib/libnvrm.so
-lib/libmlplatform.so
 lib/libnvmmlite_utils.so
 lib/libnvsm.so
-lib/libmplmpu.so
 lib/libnvmmlite_video.so
 lib/libnvsystemuiext_jni.so
 lib/libnvapputil.so
@@ -84,10 +90,10 @@ lib/libnvmm.so
 lib/libnvwsi.so
 lib/libnvcamerahdr.so
 lib/libnvmm_utils.so
-lib/libsensors.al3010.so
 lib/libnvcapclk.so
 lib/libnvmm_vc1_video.so
 lib/libsensors.base6050.so
+lib/libsensors.al3010.so
 lib/libnvcap.so
 lib/libnvmm_video.so
 lib/libsensors.base.so
@@ -105,7 +111,6 @@ lib/libnvodm_imager.so
 lib/libsensors.ltr558als.so
 lib/libnvglsi.so
 lib/libnvodm_misc.so
-lib/libsensors.mpl3050.so
 lib/libnvhdmi3dplay_jni.so
 lib/libnvodm_query.so
 lib/libstagefrighthw.so
@@ -114,13 +119,10 @@ lib/libnvomxadaptor.so
 lib/libtinyalsa.so
 lib/libnvmm_audio.so
 lib/libnvomxilclient.so
-lib/libwvdrm_L3.so
 lib/libnvmm_aviparser.so
 lib/libnvomx.so
-lib/libwvm.so
 lib/libnvmm_camera.so
 lib/libnvos.so
-lib/libWVStreamControlAPI_L3.so
 
 usr/share/alsa/alsa.conf
 usr/share/alsa/cards/aliases.conf
