@@ -95,7 +95,6 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     make_ext4fs \
     setup_fs \
-	audio.primary.cardhu \
     audio.a2dp.default \
     audio.usb.default \
     libaudioutils \
@@ -104,8 +103,7 @@ PRODUCT_PACKAGES += \
     mischelp \
     tinymix \
     tinyplay \
-    tinyrec \
-    audio.primary.cardhu
+    tinyrec
 
 # Build Some Extra Apps
 PRODUCT_PACKAGES += \
@@ -151,7 +149,6 @@ PRODUCT_COPY_FILES += \
 # camera configuration file
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/nvcamera.conf:system/etc/nvcamera.conf
-
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
