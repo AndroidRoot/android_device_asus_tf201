@@ -17,6 +17,8 @@ etc/firmware/nvavp_vid_ucode.bin
 etc/firmware/nvavp_os_0ff00000.bin
 etc/firmware/nvavp_vid_ucode_alt.bin
 
+etc/firmware/camera/00-RS_M6Mo.bin
+
 etc/wifi/wpa_supplicant.conf
 
 lib/egl/libGLESv2_perfhud.so
