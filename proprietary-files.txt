@@ -3,7 +3,6 @@ bin/glgps
 bin/tf_daemon
 
 etc/enctune.conf
-etc/gps.conf
 etc/u-blox.conf
 etc/asound.conf
 etc/dbus.conf
