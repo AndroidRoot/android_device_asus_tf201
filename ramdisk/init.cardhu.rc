@@ -22,6 +22,12 @@ on early-init
     mkdir /storage/usbdisk0 0000 system system
     mkdir /storage/usbdisk1 0000 system system
 
+on early-boot
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
+
 on fs
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
     setprop ro.crypto.umount_sd false
@@ -32,6 +38,7 @@ on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+    mkdir /data/nvcam 0700 media camera
     chown dhcp dhcp /data/misc/dhcp
 
     mkdir /data/misc/wminput 0776 system system
@@ -42,14 +49,6 @@ on post-fs-data
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
-
-    # ATD test command interface
-    symlink /sys/bus/i2c/drivers/asusdec/1-0019/ec_lid /data/data/hallsensor_status
-    symlink /sys/bus/i2c/drivers/asusdec/1-0019/ec_status /data/data/docking_status
-    symlink /sys/bus/i2c/drivers/asusdec/1-0019/ec_info /data/data/docking_ecinfo
-    symlink /sys/bus/i2c/drivers/asusdec/1-0019/ec_dock_battery /data/data/docking_battery
-    symlink /sys/bus/i2c/drivers/asuspec/1-0015/ec_status /data/data/ec_status
-    symlink /sys/bus/i2c/drivers/asuspec/1-0015/ec_info /data/data/ec_version
 
 on boot
 
@@ -74,19 +73,20 @@ on boot
     chmod 0660 /dev/pn544
     chown nfc nfc /dev/pn544
 
+# nvdps
+    chown system system /sys/class/graphics/fb0/device/nvdps
+
 # backlight
     chown system system /sys/class/backlight/pwm-backlight/brightness
 
 # didim
-    chown system system /sys/devices/nvhost/tegradc.0/smartdimmer/enable
-    chown system system /sys/devices/nvhost/tegradc.0/smartdimmer/aggressiveness
-    chown system system /sys/devices/nvhost/tegradc.0/smartdimmer/phase_in_adjustments
-    chown system system /sys/devices/nvhost/tegradc.0/smartdimmer/bin_width
+    chown system system /sys/class/graphics/fb0/device/smartdimmer/enable
+    chown system system /sys/class/graphics/fb0/device/smartdimmer/aggressiveness
+    chown system system /sys/class/graphics/fb0/device/smartdimmer/phase_in_adjustments
 
 # power
     chown system system /sys/kernel/tegra_cap/core_cap_level
     chown system system /sys/kernel/tegra_cap/core_cap_state
-    chown system system /sys/devices/platform/tegra_grhost/enable_3d_scaling
     chown system system /sys/module/cpu_tegra/parameters/cpu_user_cap
     chown system system /sys/module/cpu_tegra3/parameters/mp_overhead
     chown system system /sys/module/cpu_tegra/parameters/system_mode
@@ -96,28 +96,32 @@ on boot
     chown system system /sys/module/cpu_tegra/parameters/pwr_cap_limit_4
 
 # Sensor
-    mkdir /data/sensors 0751 system system
-    mkdir /data/lightsensor 0751 system system
-    chmod 666 /dev/nvhost-ctrl
-    chmod 666 /dev/nvhost-display
-    chmod 666 /dev/nvhost-dsi
-    chmod 666 /dev/nvhost-gr2d
-    chmod 666 /dev/nvhost-gr3d
-    chmod 666 /dev/nvhost-isp
-    chmod 666 /dev/nvhost-mpe
-    chmod 666 /dev/nvhost-vi
     chown system system /sys/bus/iio/devices/device0/als_ir_mode
+    chown system system /sys/bus/iio/devices/device0/als_enable
+    chown system system /sys/bus/iio/devices/device0/als_high_threshold
+    chown system system /sys/bus/iio/devices/device0/als_low_threshold
+
     chown system system /sys/bus/iio/devices/device0/proximity_enable
+    chown system system /sys/bus/iio/devices/device0/proximity_high_threshold
+    chown system system /sys/bus/iio/devices/device0/proximity_low_threshold
+    chown system system /sys/devices/platform/tegra-i2c.2/i2c-2/2-000f/enable
+    chown system system /sys/devices/platform/tegra-i2c.2/i2c-2/2-000f/delay
+    chmod 777 /sys/devices/platform/tegra-i2c.2/i2c-2/2-000f/enable
+    chmod 777 /sys/devices/platform/tegra-i2c.2/i2c-2/2-000f/delay
+
+    # new nodes from linux kernel v3.4
+    chown system system /sys/bus/iio/devices/iio:device0/als_ir_mode
+    chown system system /sys/bus/iio/devices/iio:device0/als_enable
+    chown system system /sys/bus/iio/devices/iio:device0/proximity_enable
+    insmod /system/lib/modules/mpu3050.ko
+    insmod /system/lib/modules/inv_mpu_kxtf9.ko
+    insmod /system/lib/modules/inv_mpu_ak8975.ko
 
 # Power management settings
     chown system system /sys/module/cpu_tegra3/parameters/no_lp
     write /sys/module/cpu_tegra3/parameters/no_lp 0
     #write /sys/module/tegra3_emc/parameters/emc_enable 0
     #write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 1000000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpufreq/interactive/boost_factor 2
     write /sys/devices/system/cpu/cpufreq/interactive/sustain_load 80
     write /sys/module/cpu_tegra3/parameters/auto_hotplug 1
@@ -125,20 +129,20 @@ on boot
     write /sys/module/cpuidle/parameters/lp2_in_idle 1
     chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_input_time
 
-# Display Settings
-    write /sys/devices/nvhost/tegradc.0/smartdimmer/enable 1
-    write /sys/devices/nvhost/tegradc.0/smartdimmer/bin_width 1
+# Interactive governor settings
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boost_factor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost_factor
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/max_boost
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/max_boost
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/sustain_load
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/sustain_load
 
-# Setup CPU for "balanced" mode 
-    setprop sys.cpu.mode 1
-
-# We dont want to swap keys unless needed
-    setprop sys.dockkeys.change 0
-
-# Touchscreen Config-UI interface
-   chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/debug_enable
-   chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/pause_driver
-   chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/slowscan_enable
+# Set battery poll interval
+    write /sys/module/bq27x00_battery/parameters/poll_interval 30
 
 #Fuse
     chmod 444 /sys/firmware/fuse/odm_production_mode
@@ -149,12 +153,10 @@ on boot
 
 #GPS
     mkdir /data/gps
-    chown gps system /data/gps
+    chown system system /data/gps
     chmod 770 /data/gps
-    chown gps system /sys/module/cpu_tegra/parameters/gps_start
+    chown system system /sys/module/cpu_tegra/parameters/gps_start
     chmod 600 /sys/module/cpu_tegra/parameters/gps_start
-    chown gps system /dev/ttyHS1
-    chmod 0660 /dev/ttyHS1
 
 # Wiimote connect status
     write /data/misc/wminput/connected 0
@@ -164,23 +166,41 @@ on boot
     write /sys/class/gpio/export 162
     write /sys/class/gpio/gpio162/value 0
     write /sys/class/gpio/gpio162/direction out
-    chown gps system /sys/class/gpio/gpio162/value
+    chown root system /sys/class/gpio/gpio162/value
     chmod 0664 /sys/class/gpio/gpio162/value
 
-# NTFS and exFAT support
-    insmod /sbin/tntfs.ko
-    insmod /sbin/texfat.ko
+# ril
+    mkdir /data/modem 0770 radio system
+    chown radio system /sys/devices/virtual/ril/files/prox_onoff
 
+#insmod cfg80211.ko for cfg80211 and P2P mode.
+    insmod /system/lib/modules/cfg80211.ko
+ 
 # Touch
-    start touch_update
+    chown system system /proc/ektf_dbg
+    chmod 0660 /proc/ektf_dbg
+
+# BB mapping symbolic name to the logging ttyACM port
+    symlink /dev/ttyACM2 /dev/log_modem
+
+# Enable USB Remote Wakeup on USB2 for modems
+    write /sys/bus/usb/devices/1-1/power/wakeup enabled
+
+on property:ro.debuggable=1
+    # Touchscreen Config-UI interface
+    chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/mem_access
+    chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/debug_enable
+    chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/pause_driver
+    chmod 666 /sys/devices/platform/tegra-i2c.1/i2c-1/1-005a/slowscan_enable
+
+# stop ril-daemon if this is a wifi-only device
+on property:ro.carrier=wifi-only
+    stop ril-daemon
 
 # Write Wi-Fi Mac
 service wifimacwriter /system/bin/wifimacwriter
     class main
     oneshot
-
-# BB mapping symbolic name to the logging ttyACM port
-    symlink /dev/ttyACM2 /dev/log_modem
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
@@ -274,8 +294,9 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --scopcm=0,2,0,0,0
 # Start GPS daemon
   on boot
   service gps-daemon /system/bin/glgps -c /system/etc/gps/gpsconfig.xml
-  user gps
-  group system
+  user root
+  socket gps seqpacket 0666 root root
+  group root
   class late_start
 
 # logtool service start
