@@ -109,7 +109,7 @@ PRODUCT_PACKAGES += \
     libasusdec_jni
 
 # Propertys spacific for this device
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15 \
     ro.opengles.version=131072 \
@@ -117,7 +117,8 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Tegra 3 spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.tegra.nvmmlite=1
+    persist.tegra.nvmmlite=1 \
+    tf.enable=1
 
 # Prime spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
