@@ -37,13 +37,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.cardhu.cpu.rc:root/init.cardhu.cpu.rc \
     $(LOCAL_PATH)/ramdisk/fstab.cardhu:root/fstab.cardhu
 
-# Prebuilt configeration files
+# Prebuilt configuration files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/cpu.sh:system/bin/cpu.sh \
     $(LOCAL_PATH)/prebuilt/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/prebuilt/gpsconfig.xml:system/etc/gps/gpsconfig.xml
 
-# Input device configeration files
+# Input device configuration files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/atmel-maxtouch.idc:system/usr/idc/atmel-maxtouch.idc \
     $(LOCAL_PATH)/idc/elantech_touchscreen.idc:system/usr/idc/elantech_touchscreen.idc \
@@ -108,19 +108,19 @@ PRODUCT_PACKAGES += \
     com.cyanogenmod.asusdec \
     libasusdec_jni
 
-# Propertys spacific for this device
+# Properties specific for this device
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15 \
     ro.opengles.version=131072 \
     persist.sys.usb.config=mtp,adb
 
-# Tegra 3 spacific overrides
+# Tegra 3 specific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.tegra.nvmmlite=1 \
-    tf.enable=1
+    tf.enable=y
 
-# Prime spacific overrides
+# Prime specific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF201 \
     ro.product.model=TF201
