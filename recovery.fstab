@@ -1,5 +1,6 @@
 # mount point	fstype		device
 
+/sdcard		datamedia	/dev/null
 /system         ext4            /dev/block/mmcblk0p1
 /cache          ext4            /dev/block/mmcblk0p2
 /misc           emmc            /dev/block/mmcblk0p3
