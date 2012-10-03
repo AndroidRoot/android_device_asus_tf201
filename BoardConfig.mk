@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-USE_PROPRIETARY_AUDIO_EXTENSIONS := true
 USE_CAMERA_STUB := false
 
 # inherit from the proprietary version
@@ -79,10 +78,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 29850022707
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
-
-# Audio Build Options
-BOARD_USES_GENERIC_AUDIO := false
-BOARD_USES_ALSA_AUDIO := false
 
 # Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/asus/tf201

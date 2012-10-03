@@ -97,10 +97,7 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     libinvensense_mpl \
     blobpack_tfp \
-    mischelp \
-    tinymix \
-    tinyplay \
-    tinyrec
+    mischelp
 
 # Build Some Extra Apps
 PRODUCT_PACKAGES += \
