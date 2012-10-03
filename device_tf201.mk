@@ -120,6 +120,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Prime specific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF201 \
+    ro.epad.model_id=00 \
     ro.product.model=TF201
 
 # media config xml file
