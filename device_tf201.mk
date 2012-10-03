@@ -133,10 +133,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     system/bluetooth/data/main.nonsmartphone.conf:system/etc/bluetooth/main.conf
 
-# audio mixer paths
-PRODUCT_COPY_FILES += \
-    device/asus/tf201/mixer_paths.xml:system/etc/mixer_paths.xml
-
 # audio policy configuration
 PRODUCT_COPY_FILES += \
     device/asus/tf201/audio_policy.conf:system/etc/audio_policy.conf
