@@ -2,7 +2,7 @@
  {
    "repository": "android_kernel_asus_tf201",
    "target_path": "kernel/asus/tf201",
-   "branch": "10.4.2.15"
+   "branch": "10.4.2.15-nvtegra"
  }
 ]
 
