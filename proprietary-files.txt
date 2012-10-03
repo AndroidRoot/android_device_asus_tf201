@@ -60,6 +60,13 @@ lib/libEGL.so
 lib/libnvmmlite_msaudio.so
 lib/libnvrm_graphics.so
 
+
+lib/libami_sensor_mw.so
+lib/libmllite.so
+lib/libmplmpu.so
+lib/libami.so
+lib/libmlplatform.so
+lib/libsensors.mpl3050.so
 lib/libmlplatform6050.so  
 lib/libmllite3050.so      
 lib/libmplmpu3050.so
